@@ -1,19 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const db = require('./config/db'); // using mysql2/promise
-const orderRoutes = require('./routes/orderRoutes'); // assuming you placed your placeOrder logic here
+const db = require('./config/db');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use('/api/orders', orderRoutes);
 
-// Test DB connection
 (async () => {
   try {
     await db.query('SELECT 1');
@@ -23,7 +20,10 @@ app.use('/api/orders', orderRoutes);
   }
 })();
 
-// Start server
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
