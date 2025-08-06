@@ -1,11 +1,12 @@
-const mysql = require("mysql2/promise");
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
 const db = mysql.createPool({
-  host: 'byfbkej8wldw114t7fiya-mysql.services.clever-cloud.com',
-  user: 'uccxk2sxsyke3ewr',
-  password: 'XCY68taD1IcUAq7CEHlt',
-  database: 'byfbkej8wldw114t7fiya',
-  port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
 });
 
 module.exports = db;
